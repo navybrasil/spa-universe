@@ -1,28 +1,23 @@
 import { newTitle } from "./newTitle.js";
-import {
-  homeLink,
-  universeLink,
-  explorationLink,
-  headerImage,
-} from "./elements.js";
-
-// Alterar a imagem
+import { getElements } from "./elements.js";
 
 export function togglesBackgrondHome() {
-  homeLink.addEventListener("click", () => {
-    headerImage.setAttribute("src", "./assets/universeHome.jpg"); // Substitua "new-home-image.jpg" pela sua nova imagem
-    const title = "SPA Universe";
+  const { homeLink, universeLink, explorationLink, headerImage } =
+    getElements();
+
+  function updateContent(src, title) {
+    headerImage.setAttribute("src", src);
     newTitle(title);
+  }
+
+  homeLink.addEventListener("click", () => {
+    updateContent("./assets/universeHome.jpg", "SPA Universe");
   });
   universeLink.addEventListener("click", () => {
-    headerImage.setAttribute("src", "./assets/universe.jpg"); // Substitua "new-home-image.jpg" pela sua nova imagem
-    const title = "O Universo";
-    newTitle(title);
+    updateContent("./assets/universe.jpg", "O Universo");
   });
 
   explorationLink.addEventListener("click", () => {
-    headerImage.setAttribute("src", "./assets/exploration.jpg"); // Substitua "new-home-image.jpg" pela sua nova imagem
-    const title = "Exploração";
-    newTitle(title);
+    updateContent("./assets/exploration.jpg", "Exploração");
   });
 }

@@ -1,8 +1,8 @@
 export class Router {
   routes = {};
 
-  add(routeName, page) {
-    this.routes[routeName] = page;
+  add(routeName, page, title) {
+    this.routes[routeName] = { page, title };
   }
 
   route(event) {
@@ -18,8 +18,13 @@ export class Router {
     const { pathname } = window.location;
     const route = this.routes[pathname] || this.routes[404];
 
-    fetch(route)
+    fetch(route.page)
       .then((data) => data.text())
-      .then((html) => (document.querySelector("#app").innerHTML = html));
+      .then((html) => {
+        document.querySelector("#app").innerHTML = html;
+        if (route.title) {
+          document.querySelector("title").textContent = route.title;
+        }
+      });
   }
 }
